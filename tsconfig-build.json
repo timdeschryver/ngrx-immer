@@ -1,0 +1,12 @@
+{
+	"compilerOptions": {
+		"declaration": true,
+		"sourceMap": true,
+		"module": "esnext",
+		"outDir": "dist",
+		"target": "ES2019"
+	},
+	"include": ["**/*.ts"],
+	"exclude": ["**/*.test.ts"],
+	"extends": "./tsconfig.base.json"
+}
