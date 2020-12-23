@@ -80,8 +80,8 @@ export class MoviesStore extends ImmerComponentStore<MoviesState> {
 
 ## `immerReducer`
 
-`immerReducer` is a reducer method by using the Immer `produce` method.
-This method is used by the methods in this library, this idea was inspired by [Alex Okrushko](https://twitter.com/alexokrushko).
+Inspired by [Alex Okrushko](https://twitter.com/alexokrushko), `immerReducer` is a reducer method that uses the Immer `produce` method.
+This method is used by all of the methods in `ngrx-immer` provides.
 
 ## Migrating from `ngrx-etc` to `ngrx-immer`
 

@@ -1,6 +1,6 @@
 {
 	"name": "ngrx-immer",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"description": "Immer wrappers around NgRx methods createReducer, on, and ComponentStore",
 	"keywords": [
 		"NgRx",
@@ -20,15 +20,18 @@
 	"homepage": "https://github.com/timdeschryver/ngrx-immer#readme",
 	"private": false,
 	"sideEffects": false,
-	"module": "shared.js",
-	"types": "shared.d.ts",
+	"main": "cjs/shared.js",
+	"module": "esm/shared.js",
+	"types": "esm/shared.d.ts",
 	"publishConfig": {
 		"access": "public"
 	},
 	"scripts": {
 		"test": "jest",
 		"prebuild": "rimraf dist && rimraf *.tgz",
-		"build": "tsc -p tsconfig-build.json",
+		"build": "npm run build:cjs && npm run build:esm",
+		"build:cjs": "tsc -p tsconfig-build-cjs.json",
+		"build:esm": "tsc -p tsconfig-build-esm.json",
 		"postbuild": "cpy **/package.json ../dist --cwd=./src --parents && cpy package.json dist && cpy README.md dist"
 	},
 	"peerDependencies": {

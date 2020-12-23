@@ -1,4 +1,5 @@
 {
-	"module": "index.js",
-	"types": "index.d.ts"
+	"main": "../cjs/component-store/index.js",
+	"module": "../esm/component-store/index.js",
+	"types": "../esm/component-store/index.d.ts"
 }
