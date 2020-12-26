@@ -8,6 +8,8 @@
 npm install ngrx-immer
 ```
 
+> Do not forget to install immer
+
 ## Resources
 
 - [Immer docs](https://immerjs.github.io/immer/docs/introduction)

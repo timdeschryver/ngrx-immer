@@ -1,0 +1,37 @@
+{
+	"name": "ngrx-immer",
+	"version": "0.0.4",
+	"description": "Immer wrappers around NgRx methods createReducer, on, and ComponentStore",
+	"keywords": [
+		"NgRx",
+		"Redux",
+		"Angular",
+		"Immer",
+		"Local State",
+		"Component State",
+		"State management"
+	],
+	"author": "Tim Deschryver",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/timdeschryver/ngrx-immer.git"
+	},
+	"bugs": {
+		"url": "https://github.com/timdeschryver/ngrx-immer/issues"
+	},
+	"homepage": "https://github.com/timdeschryver/ngrx-immer#readme",
+	"private": false,
+	"sideEffects": false,
+	"peerDependencies": {
+		"immer": ">=7.0.0"
+	},
+	"peerDependenciesMeta": {
+		"@ngrx/component-store": {
+			"optional": true
+		},
+		"@ngrx/store": {
+			"optional": true
+		}
+	}
+}

@@ -1,5 +1,5 @@
 import { createReducer, createAction, props } from '@ngrx/store';
-import { immerOn } from '..';
+import { immerOn } from 'ngrx-immer/store';
 
 const addItem = createAction('add item', props<{ item: string }>());
 const deleteItem = createAction('delete item', props<{ index: number }>());

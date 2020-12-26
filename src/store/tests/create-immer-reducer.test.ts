@@ -1,5 +1,5 @@
 import { createAction, on, props } from '@ngrx/store';
-import { createImmerReducer, immerOn } from '..';
+import { createImmerReducer, immerOn } from 'ngrx-immer/store';
 
 const addItem = createAction('add item', props<{ item: string }>());
 const deleteItem = createAction('delete item', props<{ index: number }>());
@@ -15,13 +15,13 @@ const reducer = createImmerReducer<{ items: string[]; otherItems: string[] }>(
 		state.items.push(item);
 		return state;
 	}),
-	// works with `immerOn`
-	immerOn(deleteItem, (state, { index }) => {
+	on(deleteItem, (state, { index }) => {
 		state.items.splice(index, 1);
-	}),
-	on(addOtherItem, (state, { item }) => {
-		state.otherItems.push(item);
 		return state;
+	}),
+	// works with `immerOn`
+	immerOn(addOtherItem, (state, { item }) => {
+		state.otherItems.push(item);
 	}),
 );
 

@@ -1,5 +1,7 @@
 {
-	"main": "../cjs/store/index.js",
-	"module": "../esm/store/index.js",
-	"types": "../esm/store/index.d.ts"
+	"ngPackage": {
+		"lib": {
+			"entryFile": "index.ts"
+		}
+	}
 }

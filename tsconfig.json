@@ -2,15 +2,23 @@
   "compilerOptions": {
       "target": "es5",
       "module": "commonjs",
+      "baseUrl": ".",
+      "rootDir": ".",
       "strict": true ,
       "noImplicitThis": true, 
       "alwaysStrict": true,
       "noUnusedLocals": true ,
-      "noUnusedParameters": true,         
+      "noUnusedParameters": true,
       "noImplicitReturns": true,
       "esModuleInterop": true,
-      "experimentalDecorators": true,       
-      "emitDecoratorMetadata": true,       
+      "experimentalDecorators": true,
+      "emitDecoratorMetadata": true,
+      "paths": {
+        "ngrx-immer": ["./src"],
+        "ngrx-immer/shared": ["./src/shared"],
+        "ngrx-immer/component-store": ["./src/component-store"],
+        "ngrx-immer/store": ["./src/store"]
+      }
   },
   "exclude": ["node_modules"]
 }

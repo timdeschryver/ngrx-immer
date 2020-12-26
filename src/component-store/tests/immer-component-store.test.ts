@@ -1,5 +1,5 @@
 import { skip, take } from 'rxjs/operators';
-import { ImmerComponentStore } from '..';
+import { ImmerComponentStore } from 'ngrx-immer/component-store';
 
 const initialState: { shows: string[] } = {
 	shows: [],

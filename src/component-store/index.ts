@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { ComponentStore } from '@ngrx/component-store';
 
-import { immerReducer } from '../shared';
+import { immerReducer } from 'ngrx-immer/shared';
 
 /**
  * Immer wrapper around `ImmerComponentStore` to mutate state

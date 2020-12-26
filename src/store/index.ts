@@ -9,7 +9,7 @@ import {
 } from '@ngrx/store';
 import { Draft } from 'immer';
 
-import { immerReducer } from '../shared';
+import { immerReducer } from 'ngrx-immer/shared';
 
 /**
  * An immer reducer that allows a void return
