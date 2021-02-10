@@ -1,6 +1,6 @@
 import {
 	Action,
-	On,
+	ReducerTypes,
 	ActionReducer,
 	createReducer,
 	ActionCreator,
@@ -14,26 +14,18 @@ import { immerReducer } from 'ngrx-immer/shared';
 /**
  * An immer reducer that allows a void return
  */
-export interface ImmerOnReducer<
-	State,
-	AC extends ActionCreator[],
-	D = Draft<State>
-> {
-	(state: D, action: ActionType<AC[number]>): void;
+export interface ImmerOnReducer<State, AC extends ActionCreator[]> {
+	(state: Draft<State>, action: ActionType<AC[number]>): void;
 }
 
 /**
  * Immer wrapper around `on` to mutate state
  */
-export function immerOn<
-	Creators extends ActionCreator[],
-	State,
-	Reducer extends ImmerOnReducer<State, Creators>
->(...args: [...creators: Creators, reducer: Reducer]): On<State> {
+export function immerOn<State, Creators extends ActionCreator[]>(
+	...args: [...creators: Creators, reducer: ImmerOnReducer<State, Creators>]
+): ReducerTypes<State, Creators> {
 	const reducer = (args.pop() as Function) as ActionReducer<State>;
 	return (on as any)(...(args as ActionCreator[]), immerReducer(reducer));
-	// when NgRx 11 is released
-	// return on(...(args as ActionCreator[]), immerReducer(reducer));
 }
 
 /**
@@ -41,7 +33,7 @@ export function immerOn<
  */
 export function createImmerReducer<State, A extends Action = Action>(
 	initialState: State,
-	...ons: On<State>[]
+	...ons: ReducerTypes<State, any>[]
 ): ActionReducer<State, A> {
 	const reducer = createReducer(initialState, ...ons);
 	return function reduce(state: State = initialState, action: A) {
