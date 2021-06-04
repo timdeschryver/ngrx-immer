@@ -12,8 +12,8 @@ npm install ngrx-immer
 
 ## Resources
 
-- [Immer docs](https://immerjs.github.io/immer/docs/introduction)
-- [NgRx docs](https://ngrx.io/docs)
+- [Immer docs](https://immerjs.github.io/immer/)
+- [NgRx docs](https://ngrx.io/docs/)
 
 ## `createImmerReducer`
 
