@@ -1,6 +1,6 @@
 {
 	"name": "ngrx-immer",
-	"version": "0.0.5",
+	"version": "0.0.0-development",
 	"description": "Immer wrappers around NgRx methods createReducer, on, and ComponentStore",
 	"keywords": [
 		"NgRx",
