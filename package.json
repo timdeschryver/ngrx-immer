@@ -2,7 +2,7 @@
 	"name": "ngrx-immer",
 	"version": "0.0.0-development",
 	"scripts": {
-		"test": "uvu -r ts-node/register -r tsconfig-paths/register src tests",
+		"test": "uvu -r tsm -r tsconfig-paths/register src tests",
 		"build": "ng-packagr -p src/ng-package.json",
 		"postbuild": "cpy README.md LICENSE dist && cpy schematics ../dist --parents --cwd=src"
 	},
@@ -20,6 +20,7 @@
 		"rxjs": "~7.4.0",
 		"ts-node": "^10.2.1",
 		"tsconfig-paths": "^3.10.1",
+		"tsm": "^2.1.4",
 		"typescript": "~4.4.2",
 		"uvu": "^0.5.1"
 	}
