@@ -23,6 +23,9 @@
 	"homepage": "https://github.com/timdeschryver/ngrx-immer#readme",
 	"private": false,
 	"sideEffects": false,
+	"ng-update": {
+		"migrations": "./schematics/migrations/migration.json"
+	},
 	"peerDependencies": {
 		"immer": ">=7.0.0",
 		"@ngrx/component-store": ">=11.0.0",

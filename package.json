@@ -4,7 +4,7 @@
 	"scripts": {
 		"test": "uvu -r ts-node/register -r tsconfig-paths/register src tests",
 		"build": "ng-packagr -p src/ng-package.json",
-		"postbuild": "cpy README.md LICENSE dist"
+		"postbuild": "cpy README.md LICENSE dist && cpy schematics ../dist --parents --cwd=src"
 	},
 	"devDependencies": {
 		"@angular/compiler": "^12.0.0",
