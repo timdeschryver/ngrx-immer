@@ -22,7 +22,7 @@ export interface ImmerOnReducer<State, AC extends ActionCreator[]> {
  * Immer wrapper around `on` to mutate state
  */
 export function immerOn<State, Creators extends ActionCreator[]>(
-	...args: [...creators: Creators, reducer: ImmerOnReducer<State, Creators>]
+	...args: [...creators: Creators, reducer: ImmerOnReducer<State extends infer S ? S : never, Creators>]
 ): ReducerTypes<State, Creators> {
 	const reducer = (args.pop() as Function) as ActionReducer<State>;
 	return (on as any)(...(args as ActionCreator[]), immerReducer(reducer));
