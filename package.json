@@ -7,21 +7,21 @@
 		"postbuild": "cpy README.md LICENSE dist && cpy schematics ../dist --parents --cwd=src"
 	},
 	"devDependencies": {
-		"@angular/compiler": "^16.0.0",
-		"@angular/compiler-cli": "^16.0.0",
-		"@angular/core": "^16.0.0",
-		"@ngrx/component-store": "^16.0.0",
-		"@ngrx/store": "^16.0.0",
-		"cpy-cli": "^4.1.0",
-		"immer": "^9.0.15",
-		"ng-packagr": "^16.0.0",
-		"prettier": "^2.7.1",
-		"rimraf": "^3.0.2",
-		"rxjs": "~7.5.5",
+		"@angular/compiler": "^17.0.0",
+		"@angular/compiler-cli": "^17.0.0",
+		"@angular/core": "^17.0.0",
+		"@ngrx/component-store": "^17.0.0",
+		"@ngrx/store": "^17.0.0",
+		"cpy-cli": "^5.0.0",
+		"immer": "^10.0.3",
+		"ng-packagr": "^17.0.0",
+		"prettier": "^3.2.5",
+		"rimraf": "^5.0.5",
+		"rxjs": "~7.8.1",
 		"ts-node": "^10.9.1",
 		"tsconfig-paths": "^4.0.0",
 		"tsm": "^2.3.0",
-		"typescript": "5.0.3",
+		"typescript": "5.3.3",
 		"uvu": "^0.5.6"
 	}
 }
