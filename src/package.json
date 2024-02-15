@@ -29,13 +29,17 @@
 	"peerDependencies": {
 		"immer": ">=7.0.0",
 		"@ngrx/component-store": ">=13.0.0",
-		"@ngrx/store": ">=13.0.0"
+		"@ngrx/store": ">=13.0.0",
+		"@ngrx/signals": ">=17.0.0"
 	},
 	"peerDependenciesMeta": {
 		"@ngrx/component-store": {
 			"optional": true
 		},
 		"@ngrx/store": {
+			"optional": true
+		},
+		"@ngrx/signals": {
 			"optional": true
 		}
 	}

@@ -17,7 +17,8 @@
 			"ngrx-immer": ["./src"],
 			"ngrx-immer/shared": ["./src/shared"],
 			"ngrx-immer/component-store": ["./src/component-store"],
-			"ngrx-immer/store": ["./src/store"]
+			"ngrx-immer/signals": ["./src/signals"],
+			"ngrx-immer/store": ["./src/store"],
 		}
 	},
 	"exclude": ["node_modules"]
