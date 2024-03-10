@@ -11,7 +11,7 @@
 		"@angular/compiler-cli": "^17.0.0",
 		"@angular/core": "^17.0.0",
 		"@ngrx/component-store": "^17.0.0",
-		"@ngrx/signals": "^17.0.0",
+		"@ngrx/signals": "^17.1.1",
 		"@ngrx/store": "^17.0.0",
 		"cpy-cli": "^5.0.0",
 		"immer": "^10.0.3",

@@ -1,3 +1,1 @@
-export function placeholder() {
-	return 'placeholder';
-}
+export {immerPatchState} from './immer-patch-state'
