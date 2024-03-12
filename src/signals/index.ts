@@ -1,7 +1,7 @@
 import { PartialStateUpdater, patchState, StateSignal } from '@ngrx/signals';
 import { immerReducer } from 'ngrx-immer';
 
-export type MutableStateUpdater<State extends object> = (state: State) => void;
+export type ImmerStateUpdater<State extends object> = (state: State) => void;
 
 function toFullStateUpdater<State extends object>(updater: PartialStateUpdater<State & {}> | MutableStateUpdater<State & {}>): (state: State) => State | void {
 	return (state: State) => {
