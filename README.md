@@ -111,9 +111,9 @@ This one is going to throw a runtime error:
 
 ```ts
 // will throw because of both returning and mutable change
-immerPatchState(userState, (state) => {
-	state.name.lastname = 'Sanders'; // mutable change
-	return state; // returning state
+immerPatchState(userStore, (state) => {
+  state.name.lastname = 'Sanders'; // mutable change
+  return state; // returning state
 });
 ```
 
