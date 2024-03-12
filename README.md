@@ -86,11 +86,16 @@ Provides an Immer-version of the Signal Store's `patchState`. It adds an additio
 which can mutate the state.
 
 ```ts
-const UserState = signalStore(withState({
-	id: 1,
-	name: { firstname: 'Konrad', lastname: 'Schultz' },
-	address: { city: 'Vienna', zip: '1010' },
-}), withComputed(({ name }) => ({ prettyName: computed(() => `${name.firstname()} ${name.lastname()}`) })));
+const UserState = signalStore(
+  withState({
+    id: 1,
+    name: { firstname: 'Konrad', lastname: 'Schultz' },
+    address: { city: 'Vienna', zip: '1010' },
+  }),
+  withComputed(({ name }) => ({
+    prettyName: computed(() => `${name.firstname()} ${name.lastname()}`),
+  }))
+);
 
 const userState = new UserState();
 
