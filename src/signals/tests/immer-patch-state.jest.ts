@@ -24,12 +24,12 @@ describe('immerPatchState', () => {
 		return new UserState();
 	};
 
-	it('should do a sanity check', () => {
+	it('smoketest', () => {
 		const userState = setup();
 		expect(userState.id()).toBe(1);
 	});
 
-	it('should be type-safe', () => {
+	it('is type-safe', () => {
 		const userState = setup();
 
 		//@ts-expect-error number is not a property
@@ -39,7 +39,7 @@ describe('immerPatchState', () => {
 		immerPatchState(userState, (state) => ({ number: 1 }));
 	});
 
-	it('should allow patching with object literal', () => {
+	it('allows patching with object literal', () => {
 		const userState = setup();
 		immerPatchState(userState, {
 			name: { firstname: 'Lucy', lastname: 'Sanders' },
@@ -48,7 +48,7 @@ describe('immerPatchState', () => {
 	});
 
 	describe('update with return value', () => {
-		it('should work with the default patch function', () => {
+		it('works with the default patch function', () => {
 			const userState = setup();
 			immerPatchState(userState, ({ name }) => ({
 				name: { firstname: name.firstname, lastname: 'Sanders' },
@@ -56,7 +56,7 @@ describe('immerPatchState', () => {
 			expect(userState.prettyName()).toBe('Konrad Sanders');
 		});
 
-		it('should work with chained patch functions', () => {
+		it('works with chained patch functions', () => {
 			const userState = setup();
 
 			function updateNames<
@@ -88,7 +88,7 @@ describe('immerPatchState', () => {
 			expect(userState.address()).toEqual({ city: 'Updated', zip: '1234' });
 		});
 
-		it('should not emit other signals', () => {
+		it('does not emit other signals', () => {
 			TestBed.runInInjectionContext(() => {
 				let effectCounter = 0;
 				const userState = setup();
@@ -108,7 +108,7 @@ describe('immerPatchState', () => {
 			});
 		});
 
-		it('should throw if a mutated patched state is returned', () => {
+		it('throws if a mutated patched state is returned', () => {
 			const userState = setup();
 
 			expect(() =>
@@ -123,7 +123,7 @@ describe('immerPatchState', () => {
 	});
 
 	describe('update without returning a value', () => {
-		it('should allow a mutable update', () => {
+		it('allows a mutable update', () => {
 			const userState = setup();
 			immerPatchState(userState, (state) => {
 				state.name = { firstname: 'Lucy', lastname: 'Sanders' };
@@ -131,7 +131,7 @@ describe('immerPatchState', () => {
 			expect(userState.prettyName()).toBe('Lucy Sanders');
 		});
 
-		it('should not emit other signals', () => {
+		it('does not emit other signals', () => {
 			TestBed.runInInjectionContext(() => {
 				let effectCounter = 0;
 				const userState = setup();
@@ -152,7 +152,7 @@ describe('immerPatchState', () => {
 		});
 	});
 
-	it('should check the Signal notification on multiple updates', () => {
+	it('checks the Signal notification on multiple updates', () => {
 		TestBed.runInInjectionContext(() => {
 			// setup effects
 			let addressEffectCounter = 0;
