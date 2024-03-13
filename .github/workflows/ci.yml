@@ -23,10 +23,10 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: install
         run: npm install
-      - name: build
-        run: npm run build
       - name: test
         run: npm run test
+      - name: build
+        run: npm run build
       - name: Release
         if: github.repository == 'timdeschryver/ngrx-immer' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/beta')
         run: npx semantic-release
