@@ -6,7 +6,7 @@ import { ImmerComponentStore, provideImmerComponentStore } from 'ngrx-immer/comp
 import { provideComponentStore } from '@ngrx/component-store';
 
 
-test('provideImmerComponentStore() should equal provideComponentStore()', () => {
+test('provideImmerComponentStore() equals provideComponentStore()', () => {
 	const ngrxProviders = provideComponentStore(DummyImmerComponentStore as any);
 
 	const ngrxImmerProviders = provideImmerComponentStore(DummyImmerComponentStore);

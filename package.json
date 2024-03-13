@@ -2,7 +2,7 @@
 	"name": "ngrx-immer",
 	"version": "0.0.0-development",
 	"scripts": {
-		"test": "uvu -r tsm -r tsconfig-paths/register src tests",
+		"test": "uvu -r tsm -r tsconfig-paths/register -i jest.ts src tests && jest",
 		"build": "ng-packagr -p src/ng-package.json",
 		"postbuild": "cpy README.md LICENSE dist && cpy schematics ../../dist --parents --cwd=src"
 	},
@@ -11,10 +11,13 @@
 		"@angular/compiler-cli": "^17.0.0",
 		"@angular/core": "^17.0.0",
 		"@ngrx/component-store": "^17.0.0",
-		"@ngrx/signals": "^17.0.0",
+		"@ngrx/signals": "^17.1.1",
 		"@ngrx/store": "^17.0.0",
+		"@types/jest": "^29.5.12",
 		"cpy-cli": "^5.0.0",
 		"immer": "^10.0.3",
+		"jest": "^29.7.0",
+		"jest-preset-angular": "^14.0.3",
 		"ng-packagr": "^17.0.0",
 		"prettier": "^3.2.5",
 		"rimraf": "^5.0.5",

@@ -80,6 +80,44 @@ export class MoviesStore extends ImmerComponentStore<MoviesState> {
 }
 ```
 
+## `immerPatchState`
+
+Provides an Immer-version of the `patchState` function from the `@ngrx/signals` package. In addition to partial state objects and updaters that update the state immutably, it accepts updater functions that update the state in a mutable manner. Similar to `patchState`, the `immerPatchState` function can be used to update the state of both SignalStore and SignalState.
+
+```ts
+const UserStore = signalStore(
+	withState({
+		user: { firstName: 'Konrad', lastName: 'Schultz' },
+		address: { city: 'Vienna', zip: '1010' },
+	}),
+	withMethods((store) => ({
+		setLastName(lastName: string): void {
+			immerPatchState(store, (state) => {
+				state.user.lastName = lastName;
+			});
+		},
+		setCity(city: string): void {
+			immerPatchState(store, (state) => {
+				state.address.city = city;
+			});
+		},
+	}))
+);
+```
+
+Please note, that the updater function can only mutate a change without returning it or return an immutable 
+state without mutable change.
+
+This one is going to throw a runtime error:
+
+```ts
+// will throw because of both returning and mutable change
+immerPatchState(userStore, (state) => {
+	state.name.lastname = 'Sanders'; // mutable change
+	return state; // returning state
+});
+```
+
 ## `immerReducer`
 
 Inspired by [Alex Okrushko](https://twitter.com/alexokrushko), `immerReducer` is a reducer method that uses the Immer `produce` method.
