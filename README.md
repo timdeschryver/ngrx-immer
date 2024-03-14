@@ -1,6 +1,19 @@
 # ngrx-immer
 
-> Immer wrappers around NgRx methods to mutate state easily
+> Immer wrappers around NgRx methods to simplify mutating state
+
+<!-- TOC -->
+* [ngrx-immer](#ngrx-immer)
+  * [Installation](#installation)
+  * [Functions](#functions)
+    * [`createImmerReducer` (@ngrx/store)](#createimmerreducer-ngrxstore)
+    * [`immerOn` (@ngrx/store)](#immeron-ngrxstore)
+    * [`ImmerComponentStore` (@ngrx/component-store)](#immercomponentstore-ngrxcomponent-store)
+    * [`immerPatchState` (@ngrx/signals)](#immerpatchstate-ngrxsignals)
+    * [`immerReducer`](#immerreducer)
+  * [FAQ](#faq)
+  * [Resources](#resources)
+<!-- TOC -->
 
 ## Installation
 
@@ -10,12 +23,9 @@ npm install ngrx-immer
 
 > Do not forget to install immer
 
-## Resources
+## Functions
 
-- [Immer docs](https://immerjs.github.io/immer/)
-- [NgRx docs](https://ngrx.io/docs/)
-
-## `createImmerReducer`
+### `createImmerReducer` (@ngrx/store)
 
 Creates an NgRx reducer, but allows you to mutate state without having to use to spread operator.
 
@@ -38,7 +48,7 @@ const todoReducer = createImmerReducer(
 );
 ```
 
-## `immerOn`
+### `immerOn` (@ngrx/store)
 
 Creates an NgRx reducer, but allows you to mutate state without having to use to spread operator.
 
@@ -61,7 +71,7 @@ const todoReducer = createReducer(
 );
 ```
 
-## `ImmerComponentStore`
+### `ImmerComponentStore` (@ngrx/component-store)
 
 Wraps Immer around the Component Store `updater` and `setState` methods.
 
@@ -80,7 +90,10 @@ export class MoviesStore extends ImmerComponentStore<MoviesState> {
 }
 ```
 
-## `immerPatchState`
+### `immerPatchState` (@ngrx/signals)
+
+> [!IMPORTANT]  
+> Because `@ngrx/signals` is in developer preview, the `immerPatchState` function is also in developer preview. It is ready to try, but may change before becoming stable.
 
 Provides an Immer-version of the `patchState` function from the `@ngrx/signals` package. In addition to partial state objects and updaters that update the state immutably, it accepts updater functions that update the state in a mutable manner. Similar to `patchState`, the `immerPatchState` function can be used to update the state of both SignalStore and SignalState.
 
@@ -105,7 +118,7 @@ const UserStore = signalStore(
 );
 ```
 
-Please note, that the updater function can only mutate a change without returning it or return an immutable 
+Please note, that the updater function can only mutate a change without returning it or return an immutable
 state without mutable change.
 
 This one is going to throw a runtime error:
@@ -118,7 +131,7 @@ immerPatchState(userStore, (state) => {
 });
 ```
 
-## `immerReducer`
+### `immerReducer`
 
 Inspired by [Alex Okrushko](https://twitter.com/alexokrushko), `immerReducer` is a reducer method that uses the Immer `produce` method.
 This method is used by all the methods in `ngrx-immer` provides.
@@ -126,3 +139,9 @@ This method is used by all the methods in `ngrx-immer` provides.
 ## FAQ
 
 - See the Immer docs, [Update patterns](https://immerjs.github.io/immer/docs/update-patterns), on how to mutate state
+
+## Resources
+
+- [Immer docs](https://immerjs.github.io/immer/)
+- [NgRx docs](https://ngrx.io/docs/)
+  
