@@ -1,6 +1,6 @@
-import { Inject, Injectable } from '@angular/core';
+import { Inject, Injectable, Optional } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
-import { ComponentStore } from '@ngrx/component-store';
+import { ComponentStore, INITIAL_STATE_TOKEN } from '@ngrx/component-store';
 
 import { immerReducer } from 'ngrx-immer/shared';
 import { produce } from 'immer';
@@ -13,7 +13,7 @@ import { produce } from 'immer';
 export class ImmerComponentStore<
 	State extends object
 > extends ComponentStore<State> {
-	constructor(@Inject(undefined) defaultState?: State) {
+	constructor(@Optional() @Inject(INITIAL_STATE_TOKEN) defaultState?: State) {
 		super(produce(defaultState, s => s));
 	}
 
