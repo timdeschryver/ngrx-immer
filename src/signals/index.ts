@@ -13,7 +13,8 @@ function toFullStateUpdater<State extends object>(updater: PartialStateUpdater<S
 	};
 }
 
-export function immerPatchState<State extends object>(state: StateSignal<State>, ...updaters: Array<Partial<State & {}> | PartialStateUpdater<State & {}> | ImmerStateUpdater<State & {}>>) {
+type Prettify<T> = { [K in keyof T]: T[K] } & {};
+export function immerPatchState<State extends object>(state: StateSignal<State>, ...updaters: Array<Partial<Prettify<State>> | PartialStateUpdater<Prettify<State>> | ImmerStateUpdater<Prettify<State>>>) {
 	const immerUpdaters = updaters.map(updater => {
 		if (typeof updater === 'function') {
 			return immerReducer(toFullStateUpdater(updater)) as unknown as PartialStateUpdater<State & {}>;
