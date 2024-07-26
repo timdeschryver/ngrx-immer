@@ -2,26 +2,28 @@ import {
 	PartialStateUpdater,
 	signalStore,
 	withComputed,
+	withMethods,
 	withState,
 } from '@ngrx/signals';
 import { immerPatchState } from 'ngrx-immer/signals';
 import { computed, effect } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 
-const UserState = signalStore(
-	withState({
-		id: 1,
-		name: { firstname: 'Konrad', lastname: 'Schultz' },
-		address: { city: 'Vienna', zip: '1010' },
-	}),
-	withComputed(({ name }) => ({
-		prettyName: computed(() => `${name.firstname()} ${name.lastname()}`),
-	})),
-);
+describe('immerPatchState (unprotected)', () => {
+	const UnprotectedUserState = signalStore(
+		{ protectedState: false },
+		withState({
+			id: 1,
+			name: { firstname: 'Konrad', lastname: 'Schultz' },
+			address: { city: 'Vienna', zip: '1010' },
+		}),
+		withComputed(({ name }) => ({
+			prettyName: computed(() => `${name.firstname()} ${name.lastname()}`),
+		})),
+	);
 
-describe('immerPatchState', () => {
 	const setup = () => {
-		return new UserState();
+		return new UnprotectedUserState();
 	};
 
 	it('smoketest', () => {
@@ -190,5 +192,53 @@ describe('immerPatchState', () => {
 			expect(addressEffectCounter).toBe(2);
 			expect(nameEffectCounter).toBe(2);
 		});
+	});
+});
+
+describe('immerPatchState (protected)', () => {
+	const ProtectedUserState = signalStore(
+		{ protectedState: true },
+		withState({
+			id: 1,
+			name: { firstname: 'Konrad', lastname: 'Schultz' },
+			address: { city: 'Vienna', zip: '1010' },
+		}),
+		withComputed(({ name }) => ({
+			prettyName: computed(() => `${name.firstname()} ${name.lastname()}`),
+		})),
+		withMethods((store) => ({
+			setName: (name: {firstname:string, lastname:string}) => immerPatchState(store, { name }),
+			incrementId: () => immerPatchState(store, state => {
+				state.id++;
+			}),
+		}))
+	);
+
+	const setup = () => {
+		return new ProtectedUserState();
+	};
+
+	it('smoketest', () => {
+		const userState = setup();
+		expect(userState.id()).toBe(1);
+	});
+
+	it('state is protected and cannot be updated from the outside', () => {
+		const userState = setup();
+
+		expect(() => {
+			// @ts-ignore
+			immerPatchState(userState, (state) => ({ number: 1 }));
+		}).toThrow();
+	});
+
+	it('allows patching protected state using withMethods', () => {
+		const userState = setup();
+
+		userState.incrementId();
+		userState.setName({ firstname: 'Lucy', lastname: 'Sanders' });
+
+		expect(userState.prettyName()).toBe('Lucy Sanders');
+		expect(userState.id()).toBe(2);
 	});
 });
