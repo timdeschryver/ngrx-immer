@@ -1,5 +1,6 @@
 import {
 	PartialStateUpdater,
+	patchState,
 	signalStore,
 	withComputed,
 	withMethods,
@@ -226,10 +227,8 @@ describe('immerPatchState (protected)', () => {
 	it('state is protected and cannot be updated from the outside', () => {
 		const userState = setup();
 
-		expect(() => {
-			// @ts-ignore
-			immerPatchState(userState, (state) => ({ number: 1 }));
-		}).toThrow();
+		//@ts-expect-error state cannot be updated
+		patchState(userState, (state) => ({ number: 1 }));
 	});
 
 	it('allows patching protected state using withMethods', () => {
