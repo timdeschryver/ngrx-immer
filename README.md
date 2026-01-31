@@ -131,6 +131,38 @@ immerPatchState(userStore, (state) => {
 });
 ```
 
+### `immerOn` (@ngrx/signals)
+
+Provides an Immer-version of the `on` function from the `@ngrx/signals` package to usage in the `withReducer` feature.
+It allows you to mutate the state in a concise and readable way.
+
+```ts
+interface MyState {
+    name: string;
+    line: {
+        points: any[];
+    };
+}
+
+
+export function withMyFeatureReducer() {
+    return signalStoreFeature(
+        type<{ state: MyState }>(),
+        withReducer(
+            // Simple assignment
+            immerOn(featureEvents.updateName, (state: MyState, { payload }) => {
+                state.name = payload.name;
+            }),
+
+            // Complex array mutation
+            immerOn(featureEvents.addPoint, (state: MyState, { payload }) => {
+                state.line.points.push(payload.point);
+            })
+        )
+    );
+}
+```
+
 ### `immerReducer`
 
 Inspired by [Alex Okrushko](https://twitter.com/alexokrushko), `immerReducer` is a reducer method that uses the Immer `produce` method.
