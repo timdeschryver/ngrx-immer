@@ -1,6 +1,6 @@
 import { PartialStateUpdater, patchState, WritableStateSource } from '@ngrx/signals';
 import { immerReducer } from 'ngrx-immer';
-import { on } from '@ngrx/signals/events';
+import { on, EventCreator } from '@ngrx/signals/events';
 import { produce } from 'immer';
 
 export type ImmerStateUpdater<State extends object> = (state: NoInfer<State>) => void;
@@ -28,9 +28,31 @@ export function immerPatchState<State extends object>(
 	patchState(stateSource, ...immerUpdaters);
 }
 
-export function immerOn<State, ActionCreator extends { type: string } & ((...args: any[]) => any)>(
-	creator: ActionCreator,
-	reducer: (state: State, action: any) => void
-): any {
-	return on(creator, (action, state) => produce(state, (draft: State) => reducer(draft, action)));
+
+
+type CaseReducer<
+	State extends object,
+	EventCreators extends EventCreator<string, any>[],
+> = (
+	event: { [K in keyof EventCreators]: ReturnType<EventCreators[K]> }[number],
+	state: State
+) =>
+		| Partial<State>
+		| PartialStateUpdater<State>
+		| Array<Partial<State> | PartialStateUpdater<State>>;
+
+type CaseReducerResult<State extends object, EventCreators extends EventCreator<string, any>[]> = {
+	reducer: CaseReducer<State, EventCreators>;
+	events: EventCreators;
+};
+
+export function immerOn<State extends object, EventCreators extends EventCreator<string, any>[]>(
+	...args: [
+		...events: EventCreators,
+		reducer: (state: State, action: ReturnType<EventCreators[number]>) => void
+	]
+): CaseReducerResult<State, EventCreator<string, any>[]> {
+	const reducer = args.pop() as (state: State, action: ReturnType<EventCreators[number]>) => void;
+	const events = args as unknown as EventCreators;
+	return (on as any)(...events, (action: any, state: any) => produce(state, (draft: any) => reducer(draft, action)));
 }

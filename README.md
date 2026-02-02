@@ -137,26 +137,35 @@ Provides an Immer-version of the `on` function from the `@ngrx/signals` package 
 It allows you to mutate the state in a concise and readable way.
 
 ```ts
-interface MyState {
-    name: string;
-    line: {
-        points: any[];
-    };
+import { signalStoreFeature, type, withReducer } from '@ngrx/signals';
+import { event } from '@ngrx/signals/events';
+import { immerOn } from 'ngrx-immer/signals';
+
+export const todoEvents = eventGroup({
+  source: 'Todo',
+  events: {
+    addTodo: type<{ text: string}>(),
+    removeTodo: type<{ index: number }>(),
+    updateTodo: type<{ index: number, text: string }>(),
+  },
+});
+
+interface TodoState {
+    todos: string[];
 }
 
-
-export function withMyFeatureReducer() {
+export function withTodoReducer() {
     return signalStoreFeature(
-        type<{ state: MyState }>(),
+        type<{ state: TodoState }>(),
         withReducer(
-            // Simple assignment
-            immerOn(featureEvents.updateName, (state: MyState, { payload }) => {
-                state.name = payload.name;
+            immerOn(todoEvents.addTodo, (state, { payload: { text } }) => {
+                state.todos.push(text);
             }),
-
-            // Complex array mutation
-            immerOn(featureEvents.addPoint, (state: MyState, { payload }) => {
-                state.line.points.push(payload.point);
+            immerOn(todoEvents.removeTodo, (state, { payload: { index } }) => {
+                state.todos.splice(index, 1);
+            }),
+            immerOn(todoEvents.updateTodo, (state, { payload: { index, text } }) => {
+                state.todos[index] = text;
             })
         )
     );
