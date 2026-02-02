@@ -147,6 +147,8 @@ export const todoEvents = eventGroup({
     addTodo: type<{ text: string}>(),
     removeTodo: type<{ index: number }>(),
     updateTodo: type<{ index: number, text: string }>(),
+    clearTodos: type<void>(),
+    resetTodos: type<void>(),
   },
 });
 
@@ -166,6 +168,9 @@ export function withTodoReducer() {
             }),
             immerOn(todoEvents.updateTodo, (state, { payload: { index, text } }) => {
                 state.todos[index] = text;
+            }),
+            immerOn(todoEvents.clearTodos, todoEvents.resetTodos, (state) => {
+                state.todos = [];
             })
         )
     );
