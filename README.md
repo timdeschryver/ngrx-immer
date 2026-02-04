@@ -10,6 +10,7 @@
     * [`immerOn` (@ngrx/store)](#immeron-ngrxstore)
     * [`ImmerComponentStore` (@ngrx/component-store)](#immercomponentstore-ngrxcomponent-store)
     * [`immerPatchState` (@ngrx/signals)](#immerpatchstate-ngrxsignals)
+    * [`immerOn` (@ngrx/signals)](#immeron-ngrxsignals)
     * [`immerReducer`](#immerreducer)
   * [FAQ](#faq)
   * [Resources](#resources)
