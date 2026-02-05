@@ -20,7 +20,7 @@ jobs:
       pull-requests: write # to be able to comment on released pull requests
     strategy:
       matrix:
-        node-version: ${{ fromJSON((github.ref == 'refs/heads/main' || github.ref == 'refs/heads/beta') && '[22]' || '[22, 20]') }}
+        node-version: ${{ fromJSON((github.ref == 'refs/heads/main' || github.ref == 'refs/heads/beta') && '[24]' || '[24, 22, 20]') }}
         os: ${{ fromJSON((github.ref == 'refs/heads/main' || github.ref == 'refs/heads/beta') && '["ubuntu-latest"]' || '["ubuntu-latest", "windows-latest"]') }}
     runs-on: ${{ matrix.os }}
 
@@ -38,7 +38,7 @@ jobs:
         run: npm run build
       - name: Release
         if: github.repository == 'timdeschryver/ngrx-immer' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/beta')
-        uses: cycjimmy/semantic-release-action@v5
+        uses: cycjimmy/semantic-release-action@v6
         with:
           semantic_version: 25
           working_directory: './dist'
