@@ -93,9 +93,6 @@ export class MoviesStore extends ImmerComponentStore<MoviesState> {
 
 ### `immerPatchState` (@ngrx/signals)
 
-> [!IMPORTANT]  
-> Because `@ngrx/signals` is in developer preview, the `immerPatchState` function is also in developer preview. It is ready to try, but may change before becoming stable.
-
 Provides an Immer-version of the `patchState` function from the `@ngrx/signals` package. In addition to partial state objects and updaters that update the state immutably, it accepts updater functions that update the state in a mutable manner. Similar to `patchState`, the `immerPatchState` function can be used to update the state of both SignalStore and SignalState.
 
 ```ts
