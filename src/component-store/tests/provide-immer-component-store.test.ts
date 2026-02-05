@@ -1,22 +1,21 @@
 import '@angular/compiler';
-import { test } from 'uvu';
-import * as assert from 'uvu/assert';
+import { describe, it, expect } from 'vitest';
 
 import { ImmerComponentStore, provideImmerComponentStore } from 'ngrx-immer/component-store';
 import { provideComponentStore } from '@ngrx/component-store';
 
 
-test('provideImmerComponentStore() equals provideComponentStore()', () => {
-	const ngrxProviders = provideComponentStore(DummyImmerComponentStore as any);
+describe('provideImmerComponentStore', () => {
+	it('provideImmerComponentStore() equals provideComponentStore()', () => {
+		const ngrxProviders = provideComponentStore(DummyImmerComponentStore as any);
 
-	const ngrxImmerProviders = provideImmerComponentStore(DummyImmerComponentStore);
+		const ngrxImmerProviders = provideImmerComponentStore(DummyImmerComponentStore);
 
-	// assert
-	assert.instance(ngrxImmerProviders, Array);
-	assert.is.not(ngrxImmerProviders.length, 0);
-	assert.equal(ngrxImmerProviders.toString(), ngrxProviders.toString());
+		// assert
+		expect(ngrxImmerProviders).toBeInstanceOf(Array);
+		expect(ngrxImmerProviders.length).not.toBe(0);
+		expect(ngrxImmerProviders.toString()).toEqual(ngrxProviders.toString());
+	});
 });
 
 class DummyImmerComponentStore extends ImmerComponentStore<{}> { }
-
-test.run();
