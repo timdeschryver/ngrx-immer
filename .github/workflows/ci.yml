@@ -1,5 +1,8 @@
 name: ci
 
+permissions:
+  id-token: write
+
 on:
   push:
     branches:
@@ -9,6 +12,12 @@ on:
 
 jobs:
   build_test_release:
+    permissions:
+      id-token: write # to enable use of OIDC (npm trusted publishing and provenance)
+      actions: write #  to cancel/stop running workflows (styfle/cancel-workflow-action)
+      contents: write #  to create release tags (cycjimmy/semantic-release-action)
+      issues: write # to post release that resolves an issue (cycjimmy/semantic-release-action)
+      pull-requests: write # to be able to comment on released pull requests
     strategy:
       matrix:
         node-version: ${{ fromJSON((github.ref == 'refs/heads/main' || github.ref == 'refs/heads/beta') && '[22]' || '[22, 20]') }}
@@ -29,7 +38,14 @@ jobs:
         run: npm run build
       - name: Release
         if: github.repository == 'timdeschryver/ngrx-immer' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/beta')
-        run: npx semantic-release
+        uses: cycjimmy/semantic-release-action@v5
+        with:
+          semantic_version: 25
+          working_directory: './dist'
+          branches: |
+            [
+              'main',
+              {name: 'beta', prerelease: true},
+            ]
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
