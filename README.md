@@ -10,6 +10,7 @@
     * [`immerOn` (@ngrx/store)](#immeron-ngrxstore)
     * [`ImmerComponentStore` (@ngrx/component-store)](#immercomponentstore-ngrxcomponent-store)
     * [`immerPatchState` (@ngrx/signals)](#immerpatchstate-ngrxsignals)
+    * [`immerOn` (@ngrx/signals)](#immeron-ngrxsignals)
     * [`immerReducer`](#immerreducer)
   * [FAQ](#faq)
   * [Resources](#resources)
@@ -129,6 +130,52 @@ immerPatchState(userStore, (state) => {
 	state.name.lastname = 'Sanders'; // mutable change
 	return state; // returning state
 });
+```
+
+### `immerOn` (@ngrx/signals)
+
+Provides an Immer-version of the `on` function from the `@ngrx/signals` package to usage in the `withReducer` feature.
+It allows you to mutate the state in a concise and readable way.
+
+```ts
+import { signalStoreFeature, type, withReducer } from '@ngrx/signals';
+import { event } from '@ngrx/signals/events';
+import { immerOn } from 'ngrx-immer/signals';
+
+export const todoEvents = eventGroup({
+  source: 'Todo',
+  events: {
+    addTodo: type<{ text: string}>(),
+    removeTodo: type<{ index: number }>(),
+    updateTodo: type<{ index: number, text: string }>(),
+    clearTodos: type<void>(),
+    resetTodos: type<void>(),
+  },
+});
+
+interface TodoState {
+    todos: string[];
+}
+
+export function withTodoReducer() {
+    return signalStoreFeature(
+        type<{ state: TodoState }>(),
+        withReducer(
+            immerOn(todoEvents.addTodo, (state, { payload: { text } }) => {
+                state.todos.push(text);
+            }),
+            immerOn(todoEvents.removeTodo, (state, { payload: { index } }) => {
+                state.todos.splice(index, 1);
+            }),
+            immerOn(todoEvents.updateTodo, (state, { payload: { index, text } }) => {
+                state.todos[index] = text;
+            }),
+            immerOn(todoEvents.clearTodos, todoEvents.resetTodos, (state) => {
+                state.todos = [];
+            })
+        )
+    );
+}
 ```
 
 ### `immerReducer`
